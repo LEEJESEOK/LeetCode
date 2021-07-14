@@ -8,8 +8,9 @@ import math
 import bisect
 from typing import *
 
+
 class MyCircularDeque:
-    
+
     def __init__(self, k: int):
         """
         Initialize your data structure here. Set the size of the deque to be k.
@@ -17,7 +18,6 @@ class MyCircularDeque:
         self.front, self.rear = 0, 0
         self.size = k + 1
         self.deque = [-1]*self.size
-        
 
     def insertFront(self, value: int) -> bool:
         """
@@ -29,7 +29,6 @@ class MyCircularDeque:
             self.deque[self.front] = value
             self.front = (self.front - 1 + self.size) % self.size
             return True
-        
 
     def insertLast(self, value: int) -> bool:
         """
@@ -41,7 +40,6 @@ class MyCircularDeque:
             self.rear = (self.rear + 1) % self.size
             self.deque[self.rear] = value
             return True
-        
 
     def deleteFront(self) -> bool:
         """
@@ -53,7 +51,6 @@ class MyCircularDeque:
             self.deque[(self.front + 1) % self.size] = -1
             self.front = (self.front + 1) % self.size
             return True
-        
 
     def deleteLast(self) -> bool:
         """
@@ -65,28 +62,24 @@ class MyCircularDeque:
             self.deque[self.rear] = -1
             self.rear = (self.rear - 1 + self.size) % self.size
             return True
-        
 
     def getFront(self) -> int:
         """
         Get the front item from the deque.
         """
         return self.deque[(self.front + 1) % self.size]
-        
 
     def getRear(self) -> int:
         """
         Get the last item from the deque.
         """
         return self.deque[self.rear]
-        
 
     def isEmpty(self) -> bool:
         """
         Checks whether the circular deque is empty or not.
         """
         return self.front == self.rear
-        
 
     def isFull(self) -> bool:
         """
@@ -131,8 +124,9 @@ class MyCircularDeque:
 # print(circularDeque.insertLast(4))
 # print(circularDeque.isEmpty())
 
-["MyCircularDeque","insertFront","insertLast","getFront","insertLast","getFront","insertFront","getRear","getFront","getFront","deleteLast","getRear"]
-[[5],[7],[0],[],[3],[],[9],[],[],[],[],[]]
+["MyCircularDeque", "insertFront", "insertLast", "getFront", "insertLast", "getFront",
+    "insertFront", "getRear", "getFront", "getFront", "deleteLast", "getRear"]
+[[5], [7], [0], [], [3], [], [9], [], [], [], [], []]
 circularDeque = MyCircularDeque(5)
 print(circularDeque.insertFront(7))
 print(circularDeque.insertLast(0))
