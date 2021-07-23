@@ -11,29 +11,24 @@ from typing import *
 
 
 class Solution:
-    result = -1
-    largest = []  
-
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        discovered = []
-        stack = []
-
-        course = collections.defaultdict(list)
+        graph = collections.defaultdict(list)
         for u, v, w in times:
-            course[u].append((v, w))
+            graph[u].append((v, w))
 
-        def dfs(u: int):
-            for v, w in course[u]:
-                discovered.append(v)
-                dfs(v)
+        q = [(0, k)]
 
-        discovered.append(k)
-        stack.append(k)
-        dfs(k)
+        dist = collections.defaultdict(int)
 
-        print(self.largest)
+        while q:
+            time, node = heapq.heappop(q)
+            if node not in dist:
+                dist[node] = time
+                for v, w in graph[node]:
+                    alt = time + w
+                    heapq.heappush(q, (alt, v))
 
-        return self.result if len(discovered) == n else False
+        return max(dist.values()) if len(dist) == n else -1
 
 
 times, n, k = [[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2
