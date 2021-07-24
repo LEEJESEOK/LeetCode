@@ -18,23 +18,25 @@ from typing import *
 
 
 class Solution:
-    result = 0
 
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        result = 0
 
         def diameter(node):
+            nonlocal result
+
             if node is None:
                 return 0
 
             l = diameter(node.left)
             r = diameter(node.right)
 
-            self.result = max(self.result, l + r)
+            result = max(result, l + r)
             return max(l, r) + 1
 
         diameter(root)
 
-        return self.result
+        return result
 
 
 root = [1, 2, 3, 4, 5]
