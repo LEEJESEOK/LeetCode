@@ -2,11 +2,11 @@
 LeetCode Algorithm Solutions
 
 # 목차
-1. [문자열 조작](#1.-문자열-조작)
+1. [문자열 조작](#1-문자열-조작)
 
-    1.1 [Valid Palindrome](#1.1-Valid-Palindrome)
+    1.1 [Valid Palindrome](#11-valid-palindrome-two-pointers-string)
 
-    1.2 [Reverse String](#1.2-Reverse-String)
+    1.2 [Reverse String](#12-reverse-string-two-pointers-string-recursion)
 2. [배열]()
 3. [연결 리스트]()
 4. [스택, 큐]()
