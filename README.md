@@ -151,7 +151,7 @@ return counts.most_common(1)[0][0]
 
 <br>
 
-## 1.5 [Group Anagrams](https://leetcode.com/problems/group-anagrams/)(Hash Table, String, Sorting)
+## 1.5 [Group Anagrams](https://leetcode.com/problems/group-anagrams/) (Hash Table, String, Sorting)
 Given an array of strings `strs`, group the <b>anagrams</b> together. You can return the answer in <b>any order</b>.   
 
 An <b>Anagram</b> is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.   
