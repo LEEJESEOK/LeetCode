@@ -9,6 +9,7 @@ LeetCode Algorithm Solutions
     1.2 [Reverse String](#12-reverse-string-two-pointers-string-recursion)   
     1.3 [Reorder Data in Log Files](#13-reorder-data-in-log-files-array-string-sorting)   
     1.4 [Most Common Word](#14-most-common-word-hash-table-string)   
+    1.5 [Group Anagrams](#15-group-anagrams-hash-table-string-sorting)
 2. [배열](#2-배열)   
 3. [연결 리스트](#3-연결-리스트)   
 4. [스택, 큐](#4-스택,-큐)   
@@ -148,6 +149,64 @@ counts = collections.Counter(words)
 return counts.most_common(1)[0][0]
 ```
 
+<br>
+
+## 1.5 [Group Anagrams](https://leetcode.com/problems/group-anagrams/)(Hash Table, String, Sorting)
+Given an array of strings `strs`, group the <b>anagrams</b> together. You can return the answer in <b>any order</b>.   
+
+An <b>Anagram</b> is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.   
+문자열 배열을 받아 애너그램 단위로 그룹핑하라.   
+
+<br>
+
+### 1.5.1 정렬하여 딕셔너리에 추가
+애너그램인 단어는 정렬하면 같은 값을 갖는 특징이 있다.   
+`defaultdict()`는 항상 디폴트를 생성해서 `KeyError`가 발생하지 않는다.
+
+```python
+anagrams = collections.defaultdict(list)
+
+for word in strs:
+    # 정렬하여 딕셔너리에 추가
+    anagrams[''.join(sorted(word))].append(word)
+
+return anagrams.values()
+```
+
+- 여러가지 정렬 방법
+```python
+>>> a = [2, 5, 1, 9, 7]
+>>> sorted(a)
+[1, 2, 5, 7, 9]
+```
+```python
+>>> a = 'zbdaf'
+>>> sorted(a)
+['a', 'b', 'd', 'f', 'z']
+```
+```python
+>>> b = 'zbdaf'
+>>> "".join(sorted(b))
+'abdfz'
+```
+`sort()` : 제자리 정렬, 정렬 결과를 별도로 리턴하는 `sorted()`와는 다르다.
+```python
+alist.sort()            # sort()는 리스트 자체를 제자리 정렬
+alist = blist.sort()    # 잘못된 구문
+                        # sort() 함수는 None을 리턴하므로 주의 필요
+```
+`sorted()`는 `key=`옵션을 지정해 정렬을 위한 키 또는 함수를 별도로 지정할 수 있다.   
+```python
+>>> c = ['ccc', 'aaaa', 'd', 'bb']
+>>> sorted(c, key=len)
+['d', 'bb', 'ccc', 'aaaa']
+```
+이 경우 문자열의 알파벳 순서가 아닌 길이 순서로 정렬된다.
+
+
+<br>
+
+## 1.6 
 
 <br>
 
