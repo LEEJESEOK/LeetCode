@@ -12,6 +12,7 @@ LeetCode Algorithm Solutions
     1.5 [Group Anagrams](#15-group-anagrams-hash-table-string-sorting)   
     1.6 [Longest Palindromic Substring](#16-longest-palindromic-substring-string-dynamic-programming)   
 2. [배열](#2-배열)   
+    2.1 [Two Sum](#21-two-sum-array-hash-table)
 3. [연결 리스트](#3-연결-리스트)   
 4. [스택, 큐](#4-스택,-큐)   
 5. [데크, 우선순위 큐](#5-데크,-우선순위-큐)   
@@ -241,7 +242,87 @@ return result
 
 <br>
 
-# 2. 배열
+# 2. 배열   
+## 2.1 [Two Sum](https://leetcode.com/problems/two-sum/) (Array, Hash Table)
+Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.   
+
+You may assume that each input would have <b>exactly one solution</b>, and you may not use the same element twice.   
+
+You can return the answer in any order.   
+덧셈하여 타겟을 만들 수 있는 배열의 두 숫자 인덱스를 리턴하라.   
+
+<br>
+
+### 2.1.1 브루트 포스로 계산
+첫 인덱스부터 나머지 인덱스를 모두 비교
+```python
+for i in range(len(nums)):
+    for j in range(i + 1, len(nums)):
+        if nums[i] + nums[j] == target:
+            return [i, j]
+```
+이 경우 풀이 시간 복잡도는 O(n2)이다.  
+
+### 2.1.2 `in`을 이용한 탐색
+타겟에서 첫 번째 값을 뺀 값 `target - n`이 존재하는지 탐색
+```python
+for i, n in enumerate(nums):
+    complement = target - n
+
+    if complement in nums[i + 1:]:
+        return nums.index(n), nums[i + 1:].index(complement) + (i + 1)
+```
+`in`의 시간 복잡도는 O(n)이고, 따라서 이전과 동일한 O(n2)이다. 
+
+### 2.1.3 첫 번째 수를 뺀 결과 키 조회
+```python
+nums_map = {}
+# 키와 값을 바꿔서 딕셔너리로 저장
+for i, num in enumerate(nums):
+    nums_map[num] = i
+
+# 타겟에서 첫 번째 수를 뺀 결과를 키로 조회
+for i , num in enumerate(nums):
+    if target - num in nums_map and i != nums_map[target - num]:
+        return nums.index(num), nums_map[target - num]
+```
+타겟에서 첫 번째 수를 빼면 두 번째 수를 바로 알아낼 수 있다. 
+두 번째 수를 키로 하고 기존의 인덱스는 값으로 바꿔서 딕셔너리에 저장하면, 나중에 두 번째 수를 키로 조회하면 즉시 정답을 찾을 수 있다.   
+딕셔너리는 해시 테이블로 구현   
+해시 테이블은 평균적으로 O(1), 최악의 경우 O(n)   
+
+### 2.1.4 조회 구조 개선
+저장과 조회를 하나의 `for`문에서 처리
+```python
+nums_map = {}
+# 하나의 for 문으로 통합
+for i, num in enumerate(nums):
+    if target - num in nums_map:
+        return [nums_map[target - num], i]
+    nums_map[num] = i
+```
+실행 속도는 이전과 큰 차이 없음
+
+### 2.1.5 투 포인터 이용
+왼쪽 포인터와 오른쪽 포인터의 합이 크다면 오른쪽 포인터를 왼쪽으로 작다면 왼쪽 포인터를 오른쪽으로 옮기면서 값을 조정하는 방식   
+```python
+left, right = 0, len(nums) - 1
+while not left == right:
+    # 합이 타겟보다 작으면 왼쪽 포인터를 오른쪽으로
+    if nums[left] + nums[right] < target :
+        left += 1
+    # 합이 타겟보다 크면 오른쪽 포인터를 왼쪽으로
+    elif nums[left] + nums[right] > target:
+        righth -= 1
+    else:
+        return left, right
+```
+시간 복잡도 O(n)   
+하지만 `nums` 배열이 정렬된 상태가 아니므로 풀이할 수 없다.   
+
+<br>
+
+
 
 <br>
 
